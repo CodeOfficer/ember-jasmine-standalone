@@ -2,6 +2,11 @@ javascripts:
   application:
     - public/javascripts/vendor/jquery.js
     - public/javascripts/vendor/ember.js
+    - public/javascripts/app/lib/*.js
+    - public/javascripts/app/models/*.js
+    - public/javascripts/app/controllers/*.js
+    - public/javascripts/app/views/*.js
+    - public/javascripts/app/helpers/*.js
     - public/javascripts/application/application.js
   test:
     - public/javascripts/vendor/jasmine.js
