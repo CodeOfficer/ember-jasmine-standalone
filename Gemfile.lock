@@ -1,0 +1,52 @@
+GIT
+  remote: git://github.com/dockyard/jammit.git
+  revision: b30423ae5c1b4fc77706595ca7ade1dee5363466
+  specs:
+    jammit (0.6.5)
+      yui-compressor (>= 0.9.3)
+
+GIT
+  remote: git://github.com/kalasjocke/guard-jammit.git
+  revision: 9ca9419caa9853a8d128d2fd62d1629fd1590107
+  specs:
+    guard-jammit (0.1.0)
+      guard
+      jammit
+
+GIT
+  remote: git://github.com/remiprev/annyong.git
+  revision: debf82068559fb17ff5e22b288dc76b67d629cc7
+  specs:
+    annyong (0.3)
+      rack (>= 1.1.0)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    POpen4 (0.1.4)
+      Platform (>= 0.4.0)
+      open4
+    Platform (0.4.0)
+    ffi (1.0.11)
+    guard (1.0.0)
+      ffi (>= 0.5.0)
+      thor (~> 0.14.6)
+    guard-haml (0.3.2)
+      guard (>= 0.4)
+      haml (>= 3.0)
+    haml (3.1.4)
+    open4 (1.3.0)
+    rack (1.4.1)
+    thor (0.14.6)
+    yui-compressor (0.9.6)
+      POpen4 (>= 0.1.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  annyong!
+  guard
+  guard-haml
+  guard-jammit!
+  jammit!
