@@ -1,0 +1,26 @@
+javascripts:
+  application:
+    - public/javascripts/vendor/jquery.js
+    - public/javascripts/vendor/ember.js
+    - public/javascripts/application/application.js
+  test:
+    - public/javascripts/vendor/jasmine.js
+    - public/javascripts/vendor/jasmine-html.js
+stylesheets:
+  application:
+    - public/stylesheets/application/application.css
+  test:
+    - public/stylesheets/vendor/jasmine.css
+package_assets: on
+embed_assets: false
+compress_assets: off
+gzip_assets: off
+javascript_compressor: yui
+allow_debugging: on
+template_function: Handlebars.template
+template_namespace: window.JST
+template_extension: jst
+package_path: ../www
+compressor_options: {}
+css_compressor_options: {}
+
