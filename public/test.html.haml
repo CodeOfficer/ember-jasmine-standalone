@@ -7,3 +7,6 @@
     %script{:src => 'application.js'}
     %script{:src => 'test.js'}
   %body
+    :javascript
+      jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+      jasmine.getEnv().execute();
