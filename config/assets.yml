@@ -11,6 +11,7 @@ javascripts:
   test:
     - public/javascripts/vendor/jasmine.js
     - public/javascripts/vendor/jasmine-html.js
+    - public/javascripts/application/spec/*.js
 stylesheets:
   application:
     - public/stylesheets/application/application.css
