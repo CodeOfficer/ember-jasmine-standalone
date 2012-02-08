@@ -23,8 +23,8 @@ compress_assets: off
 gzip_assets: off
 javascript_compressor: yui
 allow_debugging: on
-template_function: Handlebars.template
-template_namespace: window.JST
+template_function: Ember.Handlebars.compile
+template_namespace: Ember.TEMPLATES
 template_extension: jst
 package_path: ../www
 compressor_options: {}
