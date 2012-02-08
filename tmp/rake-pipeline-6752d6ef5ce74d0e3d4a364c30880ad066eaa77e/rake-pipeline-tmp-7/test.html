@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Test Application</title>
+    <link href='vendor.css' rel='stylesheet' type='text/css' />
+    <link href='app.css' rel='stylesheet' type='text/css' />
+    <link href='test.css' rel='stylesheet' type='text/css' />
+    <script src='vendor.js'></script>
+    <script src='templates.js'></script>
+    <script src='app.js'></script>
+    <script src='test.js'></script>
+  </head>
+  <body>
+    <script type='text/javascript'>
+      //<![CDATA[
+        jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+        jasmine.getEnv().execute();
+      //]]>
+    </script>
+  </body>
+</html>
