@@ -1,3 +1,4 @@
 .bundle
 bundler_stubs/*
 www/*
+tmp/*
