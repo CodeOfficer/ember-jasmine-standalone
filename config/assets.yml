@@ -25,7 +25,7 @@ javascript_compressor: yui
 allow_debugging: on
 template_function: Ember.Handlebars.compile
 template_namespace: Ember.TEMPLATES
-template_extension: jst
+template_extension: handlebars
 package_path: ../www
 compressor_options: {}
 css_compressor_options: {}
