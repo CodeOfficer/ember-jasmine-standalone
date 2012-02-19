@@ -1,4 +1,5 @@
 .bundle
+.sass-cache/
 bundler_stubs/*
 www/*
 tmp/*
