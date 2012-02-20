@@ -2,54 +2,47 @@
 # http://rubydoc.info/gems/rake-pipeline/0.5.0/frames
 # http://stackoverflow.com/questions/8558062/setting-up-rake-pipeline-for-use-with-handlebars-alongside-google-app-engine
 
-require "json"
 require "rake-pipeline-web-filters"
-require "rake-pipeline-web-filters/helpers"
+require 'haml'
+require 'sass'
 
-class HandlebarsFilter < Rake::Pipeline::Filter
-  def initialize(&block)
-    block ||= proc { |input| input.sub(/\.handlebars$/, '.js') }
-    super(&block)
-  end
+output 'www'
 
-  def generate_output(inputs, output)
-    inputs.each do |input|
-      output.write "return Ember.Handlebars.compile(#{input.read.to_json})"
-    end
+
+input "assets", "*.haml" do |x|
+  # Compile each HAML file using Tilt, removing the haml extension.
+  filter(Rake::Pipeline::Web::Filters::TiltFilter) do |input|
+    input.sub(/\.haml$/, '')
   end
 end
 
-input  "assets"
-output "www"
-
-match "**/*.js" do
-  filter Rake::Pipeline::ConcatFilter, "application.js"
-end
-
-
-# specify filters for css and scss files
-match "*.{css,scss}" do
+input "assets/stylesheets/application", "**/*.{css,scss}" do
   # compile CSS and SCSS files using the SCSS
   # compiler. if an input file has the extension
   # scss, replace it with css
-  filter(ScssCompiler) do |input|
+  filter(Rake::Pipeline::Web::Filters::TiltFilter) do |input|
     input.sub(/\.scss$/, 'css')
   end
   # then, concatenate all CSS files into a single file
   filter Rake::Pipeline::ConcatFilter, "application.css"
 end
 
-match "**/*.handlebars" do
-  filter HandlebarsFilter
-  minispade
-  concat "templates.js"
+
+input "assets/stylesheets/test", "**/*.{css,scss}" do
+  # compile CSS and SCSS files using the SCSS
+  # compiler. if an input file has the extension
+  # scss, replace it with css
+  filter(Rake::Pipeline::Web::Filters::TiltFilter) do |input|
+    input.sub(/\.scss$/, 'css')
+  end
+  # then, concatenate all CSS files into a single file
+  filter Rake::Pipeline::ConcatFilter, "test.css"
 end
 
-match "**/*.js" do
-  minispade
-  if ENV['RAKEP_ENV'] == "production"
-    concat "application.js"
-  else
-    concat
-  end
+input "assets/javascripts/test", "**/*.js" do
+  filter(Rake::Pipeline::OrderingConcatFilter, [
+    'jasmine.js',
+    'jasmine-html.js'
+  ], 'test.js')
 end
+
