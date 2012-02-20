@@ -10,32 +10,23 @@ output 'www'
 
 
 input "assets", "*.haml" do |x|
-  # Compile each HAML file using Tilt, removing the haml extension.
   filter(Rake::Pipeline::Web::Filters::TiltFilter) do |input|
     input.sub(/\.haml$/, '')
   end
 end
 
 input "assets/stylesheets/application", "**/*.{css,scss}" do
-  # compile CSS and SCSS files using the SCSS
-  # compiler. if an input file has the extension
-  # scss, replace it with css
   filter(Rake::Pipeline::Web::Filters::TiltFilter) do |input|
     input.sub(/\.scss$/, 'css')
   end
-  # then, concatenate all CSS files into a single file
   filter Rake::Pipeline::ConcatFilter, "application.css"
 end
 
 
 input "assets/stylesheets/test", "**/*.{css,scss}" do
-  # compile CSS and SCSS files using the SCSS
-  # compiler. if an input file has the extension
-  # scss, replace it with css
   filter(Rake::Pipeline::Web::Filters::TiltFilter) do |input|
     input.sub(/\.scss$/, 'css')
   end
-  # then, concatenate all CSS files into a single file
   filter Rake::Pipeline::ConcatFilter, "test.css"
 end
 
