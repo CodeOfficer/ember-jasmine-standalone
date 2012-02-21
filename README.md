@@ -4,8 +4,7 @@
 
 ```
 $ bundle install
-$ bundle exec guard
-$ annyong
+$ bundle exec rakep
 ```
 
 You should be good to go!
