@@ -1,2 +1,2 @@
-alert('5');
+console.log('views');
 

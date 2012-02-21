@@ -1,2 +1,2 @@
-alert('4');
+console.log('models');
 
