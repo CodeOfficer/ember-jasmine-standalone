@@ -7,13 +7,6 @@ GIT
       thor
 
 GIT
-  remote: git://github.com/remiprev/annyong.git
-  revision: debf82068559fb17ff5e22b288dc76b67d629cc7
-  specs:
-    annyong (0.3)
-      rack (>= 1.1.0)
-
-GIT
   remote: git://github.com/wycats/rake-pipeline-web-filters.git
   revision: e58b9d055de666f6ca972151c125ccfb997c1b1c
   specs:
@@ -35,7 +28,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annyong!
   haml
   rake-pipeline!
   rake-pipeline-web-filters!
