@@ -2,8 +2,10 @@
 %html
   %head
     %title App
-    %link{:href => 'application.css', :rel => 'stylesheet', :type => 'text/css'}
-    %script{:src => 'application.js'}
+    %link{:href => 'vendor.css', :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => 'app.css', :rel => 'stylesheet', :type => 'text/css'}
+    %script{:src => 'vendor.js'}
+    %script{:src => 'app.js'}
   %body
     :javascript
       window.App = Ember.Application.create();
