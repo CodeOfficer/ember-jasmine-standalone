@@ -5,28 +5,48 @@
 require "rake-pipeline-web-filters"
 require 'haml'
 require 'sass'
+require 'json'
+
+
+# class HandlebarsFilter < Rake::Pipeline::Filter
+#   def initialize(&block)
+#     block ||= proc { |input| input.sub(/\.handlebars$/, '.js') }
+#     super(&block)
+#   end
+
+#   def generate_output(inputs, output)
+#     inputs.each do |input|
+#       # name = File.basename(input.path, '.handlebars')
+#       # output.write "Ember.TEMPLATES['#{name}'] =  Ember.Handlebars.compile(#{input.read.to_json});"
+#       # #output.write "return Ember.Handlebars.compile(#{input.read.to_json})"
+#       output.write "return Ember.Handlebars.compile(#{input.read.to_json})"
+#     end
+#   end
+# end
 
 output 'www'
 
 
-input "assets", "*.haml" do |x|
-  filter(Rake::Pipeline::Web::Filters::TiltFilter) do |input|
-    input.sub(/\.haml$/, '')
-  end
+# VENDOR -------------------------------------------------------
+
+input "assets/javascripts/vendor", "**/*.js" do
+  filter(Rake::Pipeline::OrderingConcatFilter, [
+    'minispade.js',
+    'jquery.js',
+    'ember.js'
+  ], 'vendor.js')
 end
 
-input "assets/stylesheets/application", "**/*.{css,scss}" do
-  filter(Rake::Pipeline::Web::Filters::TiltFilter) do |input|
-    input.sub(/\.scss$/, 'css')
-  end
-  filter Rake::Pipeline::ConcatFilter, "application.css"
+input "assets/stylesheets/vendor", "**/*.{css,scss}" do
+  filter Rake::Pipeline::Web::Filters::TiltFilter
+  filter Rake::Pipeline::ConcatFilter, "vendor.css"
 end
 
+
+# TEST ---------------------------------------------------------
 
 input "assets/stylesheets/test", "**/*.{css,scss}" do
-  filter(Rake::Pipeline::Web::Filters::TiltFilter) do |input|
-    input.sub(/\.scss$/, 'css')
-  end
+  filter Rake::Pipeline::Web::Filters::TiltFilter
   filter Rake::Pipeline::ConcatFilter, "test.css"
 end
 
@@ -35,5 +55,31 @@ input "assets/javascripts/test", "**/*.js" do
     'jasmine.js',
     'jasmine-html.js'
   ], 'test.js')
+end
+
+
+# APP ----------------------------------------------------------
+
+input "assets", "*.haml" do |x|
+  filter(Rake::Pipeline::Web::Filters::TiltFilter) do |input|
+    input.sub(/\.haml$/, '')
+  end
+end
+
+input "assets/stylesheets/app", "**/*.{css,scss}" do
+  filter Rake::Pipeline::Web::Filters::TiltFilter
+  filter Rake::Pipeline::ConcatFilter, "app.css"
+end
+
+input "assets/javascripts/app", "**/*.js" do
+  filter Rake::Pipeline::Web::Filters::MinispadeFilter, :rewrite_requires => true, :module_id_generator => proc { |input|
+    input.path.sub(/\/assets\/javascripts\/app/, "").sub(/\.js$/, "")
+  }
+  filter Rake::Pipeline::ConcatFilter, "app.js"
+end
+
+input "assets/javascripts/app", "**/*.handlebars" do
+  filter Rake::Pipeline::Web::Filters::HandlebarsFilter
+  filter Rake::Pipeline::ConcatFilter, "templates.js"
 end
 
