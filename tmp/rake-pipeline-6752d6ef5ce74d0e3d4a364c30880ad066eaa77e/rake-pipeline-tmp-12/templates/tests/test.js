@@ -1,1 +1,0 @@
-Ember.TEMPLATES['test']=Ember.Handlebars.compile("<div>\n  templates\n</div>\n");
