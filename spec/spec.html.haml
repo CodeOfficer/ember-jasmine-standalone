@@ -28,13 +28,12 @@
         window.onload = function() {
           if (currentWindowOnload) {
             currentWindowOnload();
-          }
+          };
           execJasmine();
         };
 
         function execJasmine() {
-          console.log('running specs');
           jasmineEnv.execute();
-        }
+        };
       })();
 

@@ -34,6 +34,10 @@ input "app/javascripts", "**/*.js" do
   filter Rake::Pipeline::ConcatFilter, "app.js"
 end
 
+input "app/static", "**/*" do |x|
+  filter Rake::Pipeline::ConcatFilter
+end
+
 # SPEC ---------------------------------------------------------
 
 input "spec", "*.haml" do |x|
@@ -67,3 +71,4 @@ input "app/vendor", "**/*.{css,scss}" do
   filter Rake::Pipeline::Web::Filters::TiltFilter
   filter Rake::Pipeline::ConcatFilter, "vendor.css"
 end
+
