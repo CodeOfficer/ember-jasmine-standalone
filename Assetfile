@@ -21,7 +21,9 @@ input "app/stylesheets", "**/*.{css,scss}" do
 end
 
 input "app/javascripts/templates", "**/*.handlebars" do
-  filter Rake::Pipeline::Web::Filters::HandlebarsFilter
+  filter Rake::Pipeline::Web::Filters::HandlebarsFilter, :key_name_proc => proc { |input|
+    input.path.chomp(File.extname(input.path))
+  }
   filter Rake::Pipeline::ConcatFilter, "templates.js"
 end
 

@@ -1,1 +1,2 @@
-console.log('app');
+window.App = Ember.Application.extend({
+});

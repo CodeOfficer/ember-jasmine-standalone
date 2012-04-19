@@ -9,4 +9,5 @@
     %script{:src => 'app.js'}
   %body
     :javascript
-      window.App = Ember.Application.create();
+      minispade.require('_init');
+      App.create();
