@@ -1,0 +1,41 @@
+!!!
+%html
+  %head
+    %title Test Application
+    -# %link{:href => 'vendor.css', :rel => 'stylesheet', :type => 'text/css'}
+    -# %link{:href => 'app.css', :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => 'spec_vendor.css', :rel => 'stylesheet', :type => 'text/css'}
+    %script{:src => 'vendor.js'}
+    %script{:src => 'templates.js'}
+    %script{:src => 'app.js'}
+    %script{:src => 'spec_vendor.js'}
+    %script{:src => 'specs.js'}
+  %body
+    :javascript
+      (function() {
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 1000;
+
+        var htmlReporter = new jasmine.HtmlReporter();
+
+        jasmineEnv.addReporter(htmlReporter);
+
+        jasmineEnv.specFilter = function(spec) {
+          return htmlReporter.specFilter(spec);
+        };
+
+        var currentWindowOnload = window.onload;
+
+        window.onload = function() {
+          if (currentWindowOnload) {
+            currentWindowOnload();
+          }
+          execJasmine();
+        };
+
+        function execJasmine() {
+          console.log('running specs');
+          jasmineEnv.execute();
+        }
+      })();
+
