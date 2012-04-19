@@ -40,20 +40,17 @@ input "spec", "*.haml" do |x|
   filter(Rake::Pipeline::Web::Filters::TiltFilter) { |input| input.sub(/\.haml$/, '') }
 end
 
-input "spec/support", "**/*.{css,scss}" do
+input "spec", "**/*.{css,scss}" do
   filter Rake::Pipeline::Web::Filters::TiltFilter
-  filter Rake::Pipeline::ConcatFilter, "spec_vendor.css"
+  filter Rake::Pipeline::ConcatFilter, "spec.css"
 end
 
-input "spec/models", "**/*.js" do
-  filter Rake::Pipeline::ConcatFilter, "specs.js"
-end
-
-input "spec/support", "**/*.js" do
+input "spec", "**/*.js" do
   filter(Rake::Pipeline::OrderingConcatFilter, [
-    'jasmine.js',
-    'jasmine-html.js'
-  ], 'spec_vendor.js')
+    'support/jasmine.js',
+    'support/jasmine-html.js',
+    'spec_helper.js'
+  ], 'spec.js')
 end
 
 # VENDOR -------------------------------------------------------
